@@ -1,0 +1,117 @@
+\input{@resources/tex-add-search-paths}  % allow latex to find custom stuff
+\input{./.econtexRoot}                   % Set path to root dir
+\documentclass{econark}
+\usepackage{econark}                     % shared notation and shortcuts
+\usepackage{econark-notation}            % the registry's own macros
+\usepackage{llorracc-handouts}           % \handoutHeader, \handoutNameMake
+\providecommand{\texname}{DecentralizingRCK}% Keyname for the paper
+\input{@local/dir-paths}                 % macros for various subdirs
+\usepackage{@local/\texname}             % macros specific to this handout
+\usepackage{econark-bibfilesfind}        % Package to find valid bibfiles
+\bibfilesfind{\texname}                  % find them
+\usepackage{hyperref}                    % allow hyperlinks
+\usepackage{econark-make4ht}             % link colors and pdf-or-web settings
+
+% The book's chapter is the source of this text (content/growth/DecentralizingRCK.md in
+% intertemporal-choice.github.io). Make edits there first and carry them here; check-book-sync.py
+% reports any differences. Revived from the 2021 handout on 2026-11-17 (Chris, in cc:course-choice).
+\begin{document}
+\handoutHeader
+
+\begin{verbatimwrite}{\jobname.title}
+  Decentralizing the Ramsey/Cass-Koopmans Model
+\end{verbatimwrite}
+
+\handoutNameMake
+
+\citet{ramseySave}, \citet{cass:growth} and \citet{koopmans:growth} posed optimal growth as a planner's problem. This handout shows that, under special conditions, an economy of households and firms trading in competitive markets, each taking prices as given, reaches the allocation chosen by the planner of the \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/}{Ramsey/Cass-Koopmans model}. The conditions are perfect foresight, identical preferences, perfect capital markets, competitive firms with constant returns to scale, and no externalities or distorting taxes. The handout follows \citet{blanchard&fischer:text}, section 2.2, which comes between the planner and the \href{https://intertemporal-choice.github.io/content/growth/rckwithgov/}{government}, as here; \citet{romer:text}, chapter 2, and \citet{barro&salaimartin:book}, chapter 2, start from households and firms instead.\marginFootnote{QuantEcon's \href{https://python.quantecon.org/cass_koopmans_2.html}{Cass-Koopmans Competitive Equilibrium} works through the same decentralization in discrete time and computes it, and Daron Acemoglu's \href{https://ocw.mit.edu/courses/14-452-economic-growth-fall-2016/resources/mit14_452f16_lec5and6/}{lectures on neoclassical growth} derive it in continuous time, in different notation.}
+
+The economy is the RCK model without population or productivity growth, $\PopnGroRte=\PtyGroRte=0$ and $\PtyLab=1$, so per capita and per efficiency unit are the same. Households have mass one, spread over the unit interval as in the \href{https://intertemporal-choice.github.io/content/appendices/mathematical/aggregation/}{Aggregation} appendix, and each supplies one unit of labor, so every per capita quantity is also an aggregate. Capital depreciates at the rate $\deprRte$.\marginFootnote{With population growth, each household is a dynasty whose members grow in number at the rate $\PopnGroRte$, so its net worth per member earns $\rfree-\PopnGroRte$, and its Euler equation is $\dot{\cNrm}/\cNrm = \CRRA^{-1}(\rfree-\PopnGroRte-\discRte)$, the planner's \href{https://intertemporal-choice.github.io/content/appendices/mathematical/hamiltonianvsdiscrete/\#eq-trans2}{per capita Euler equation}. The argument below goes through unchanged, and so it does with productivity growth, per efficiency unit of labor.}
+
+\section{The Household's Problem}
+
+Household $i$ supplies its labor inelastically at the wage $\Wage_{t}$ and holds net worth $\aNrm_{t,i}$: capital, plus loans to other households, minus debts to them. Under perfect foresight a loan and a unit of capital must pay the same net return, the interest rate $\rfree_{t}$, so only net worth matters. Taking the paths of $\Wage_{t}$ and $\rfree_{t}$ as given, the household chooses consumption to solve
+\begin{equation}
+  \max_{\{\cNrm_{t,i}\}_{0}^{\infty}} \int_{0}^{\infty} \uFunc(\cNrm_{t,i}) e^{-\discRte t}\,dt \label{eq:DecRCK-maxprob}
+\end{equation}
+with the \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#eq-rck-maxprob}{planner's} CRRA utility, $\uFunc(\cNrm) = \cNrm^{1-\CRRA}/(1-\CRRA)$, and time preference rate $\discRte > 0$, subject to the dynamic budget constraint
+\begin{equation}
+  \dot{\aNrm}_{t,i} = \rfree_{t}\aNrm_{t,i} + \Wage_{t} - \cNrm_{t,i} \label{eq:DecRCK-dbc}
+\end{equation}
+and the no-Ponzi condition $\lim_{t \rightarrow \infty} e^{-\int_{0}^{t}\rfree_{\tau}\,d\tau}\aNrm_{t,i} \geq 0$, which forbids rolling debt over forever.
+
+Its current-value Hamiltonian is\marginFootnote{The \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#eq-rck-h1a}{planner's} conditions have the same form. \href{https://intertemporal-choice.github.io/content/appendices/mathematical/hamiltonianvsdiscrete/}{Ramsey Growth in Discrete and Continuous Time} derives them and relates each to its discrete-time Bellman counterpart.}
+\begin{equation*}
+  \Ham(\aNrm,\cNrm,\vk) = \uFunc(\cNrm) + (\rfree_{t}\aNrm + \Wage_{t} - \cNrm)\vk .
+\end{equation*}
+The \href{https://intertemporal-choice.github.io/content/appendices/mathematical/hamiltonianvsdiscrete/\#eq-uceqvk}{condition for optimal consumption} is $\uP(\cNrm_{t,i}) = \vk_{t,i}$, and the \href{https://intertemporal-choice.github.io/content/appendices/mathematical/hamiltonianvsdiscrete/\#eq-lamgrow}{costate equation}, with the household's return $\rfree_{t}$ in place of the planner's, is $\dot{\vk}_{t,i} = \discRte\vk_{t,i} - \partial\Ham/\partial\aNrm = (\discRte-\rfree_{t})\vk_{t,i}$. Since $\uP(\cNrm) = \cNrm^{-\CRRA}$, differentiating the first with respect to time gives $\dot{\vk}/\vk = -\CRRA\dot{\cNrm}/\cNrm$, so
+\begin{equation}
+  \dot{\cNrm}_{t,i}/\cNrm_{t,i} = \CRRA^{-1}(\rfree_{t}-\discRte), \label{eq:cdotindiv}
+\end{equation}
+the \href{https://intertemporal-choice.github.io/content/consumption/perfforesightcrra/\#eq-pfcrra-cgrow}{Euler equation} of the perfect foresight model, in continuous time. Nothing on its right side is specific to household $i$: every household's consumption grows at the same rate, whatever its wealth.
+
+Since the costate equation gives $e^{-\discRte t}\vk_{t,i} = \vk_{0,i}e^{-\int_{0}^{t}\rfree_{\tau}\,d\tau}$, the transversality condition $\lim_{t \rightarrow \infty} e^{-\discRte t}\vk_{t,i}\aNrm_{t,i} = 0$ is $\lim_{t \rightarrow \infty} e^{-\int_{0}^{t}\rfree_{\tau}\,d\tau}\aNrm_{t,i} = 0$. The no-Ponzi condition rules out ending with negative net worth in present value; the transversality condition, an optimality condition, rules out ending with positive net worth, resources never consumed. Together they make the dynamic budget constraint, integrated forward, the \href{https://intertemporal-choice.github.io/content/consumption/perfforesightcrra/\#eq-pfcrra-ibc}{intertemporal budget constraint}, with equality. Writing $\PDV_{0}(\bullet) \equiv \int_{0}^{\infty} \bullet_{t}\, e^{-\int_{0}^{t}\rfree_{\tau}\,d\tau}\,dt$ for the present discounted value at date 0 of a flow $\bullet$, it says
+\begin{equation}
+  \PDV_{0}(\cNrm_{i}) = \aNrm_{0,i} + \hNrm_{0}, \label{eq:DecRCK-ibc}
+\end{equation}
+where \href{https://intertemporal-choice.github.io/content/consumption/perfforesightcrra/\#eq-pfcrra-yfin}{human wealth}, the present discounted value of labor income,\marginFootnote{Human wealth depends on the whole path of interest rates. Its response to them is the \href{https://intertemporal-choice.github.io/content/consumption/perfforesightcrra/\#eq-dlogcdr}{human wealth effect} of the perfect foresight model, separate from the income and substitution effects, which work through the share of total wealth the household spends.}
+\begin{equation}
+  \hNrm_{0} = \PDV_{0}(\Wage), \label{eq:humwealth}
+\end{equation}
+is the same for every household, because all earn the same wage.
+
+\section{The Firm's Problem}
+
+Firm $j$ hires labor at the wage $\Wage_{t}$ and rents capital at the rental rate $\kapRent_{t}$, taking both as given, and produces with the RCK model's Cobb-Douglas technology. Because it rents its capital, its problem is static: at each date it chooses\marginFootnote{With constant returns to scale, a firm's size is indeterminate and the number of firms irrelevant; like households, firms are atomistic price takers. They rent capital and own none, as in the \href{https://intertemporal-choice.github.io/content/investment/halljorgenson/}{Hall-Jorgenson model} \citep{hall&jorgenson:i}, so the firm's problem has no intertemporal dimension; with costs of adjusting capital it would become the problem of the \href{https://intertemporal-choice.github.io/content/investment/qmodel/}{q model}.}
+\begin{equation*}
+  \max_{\KLvl_{t,j},\,\LLvl_{t,j}}\ \FFunc(\KLvl_{t,j},\LLvl_{t,j}) - \Wage_{t}\LLvl_{t,j} - \kapRent_{t}\KLvl_{t,j},
+\end{equation*}
+the \href{https://intertemporal-choice.github.io/content/investment/halljorgenson/\#eq-khj}{Hall-Jorgenson} firm's problem with labor added. With $\kap = \KLvl/\LLvl$ and $\fFunc(\kap) = \FFunc(\KLvl,\LLvl)/\LLvl = \kap^{\kapShare}$, its first-order conditions set each price to a marginal product,
+\begin{equation}
+  \kapRent_{t} = \fFunc^{\prime}(\kap_{t}), \qquad \Wage_{t} = \fFunc(\kap_{t}) - \kap_{t}\fFunc^{\prime}(\kap_{t}), \label{eq:DecRCK-prices}
+\end{equation}
+as in the \href{https://intertemporal-choice.github.io/content/consumption/olgmodel/\#eq-reqfp}{Diamond OLG model} and the \href{https://intertemporal-choice.github.io/content/consumption/aiyagari/\#eq-aiyagari-prices}{Aiyagari model}. The first condition gives every firm the same capital per worker, so the index $j$ can be dropped. By \href{https://intertemporal-choice.github.io/content/appendices/mathematical/mathfactslist/\#fact-eulerstheorem}{Euler's theorem} for \href{https://en.wikipedia.org/wiki/Homogeneous_function\#Euler's_theorem}{homogeneous functions}, these payments exhaust output, $\fFunc(\kap_{t}) = \Wage_{t} + \kapRent_{t}\kap_{t}$, so profits are zero whatever the firm's size.
+
+\section{Equilibrium}
+
+Households own the capital and rent it to firms. A unit of capital earns $\kapRent_{t}$ and depreciates at the rate $\deprRte$, so its net return, the interest rate, is
+\begin{equation}
+  \rfree_{t} = \kapRent_{t} - \deprRte = \fFunc^{\prime}(\kap_{t}) - \deprRte, \label{eq:DecRCK-r}
+\end{equation}
+the \href{https://intertemporal-choice.github.io/content/investment/halljorgenson/\#eq-ctarb}{Hall-Jorgenson} no-arbitrage condition with a constant price of capital.
+
+Firms employ the one unit of labor that households supply. In a closed economy with no government, every household's debt is another household's asset, so loans net out and aggregate net worth is the capital stock,
+\begin{equation}
+  \aNrm_{t} \equiv \int_{0}^{1} \aNrm_{t,i}\,di = \kap_{t}, \label{eq:DecRCK-clear}
+\end{equation}
+where, with a unit mass of workers, capital per worker $\kap_{t}$ is also the aggregate capital stock. If households are identical, each holds $\kap_{t}$ and no loans.\marginFootnote{Differences in wealth across households would change nothing. With CRRA utility, perfect foresight and perfect capital markets, every household spends the same fraction of its total wealth, net worth plus human wealth, a fraction that depends only on the path of interest rates, so aggregate consumption depends only on aggregate wealth \citep{gorman1953community}. Uninsurable income risk and liquidity constraints break this, as the \href{https://intertemporal-choice.github.io/content/consumption/aiyagari/}{Aiyagari model} shows; see also \citet{carroll:brookings}, \citet{ksHetero} and \citet{carrollRequiem}.}
+
+A perfect foresight equilibrium is a path of capital $\{\kap_{t}\}_{0}^{\infty}$ from the given $\kap_{0}$, with the interest rates and wages it implies through \eqref{eq:DecRCK-r} and \eqref{eq:DecRCK-prices}, such that households who expect those prices and optimize hold, in total, exactly that capital. Their expectations of the path of capital are then self-fulfilling.\marginFootnote{Only one set of expectations is self-fulfilling here: from a given $\kap_{0}$, only the \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#fig-ramseysaddleplot}{saddle path} satisfies the equilibrium conditions and the \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#eq-tvc}{transversality condition}. In other models several paths can each be self-fulfilling; Wikipedia's article on \href{https://en.wikipedia.org/wiki/Sunspots_(economics)}{sunspots} surveys the idea.}
+
+\section{The Equilibrium Is the Planner's Solution}
+
+Substituting market clearing and the prices into the household's budget constraint and Euler equation gives
+\begin{equation}\begin{gathered}\begin{aligned}
+  \dot{\kap}_{t} & =  \rfree_{t}\kap_{t} + \Wage_{t} - \cNrm_{t}
+\\ & = (\fFunc^{\prime}(\kap_{t})-\deprRte)\kap_{t} + \fFunc(\kap_{t}) - \kap_{t}\fFunc^{\prime}(\kap_{t}) - \cNrm_{t}
+\\ & = \fFunc(\kap_{t}) - \deprRte\kap_{t} - \cNrm_{t}
+\\ \dot{\cNrm}_{t}/\cNrm_{t} & = \CRRA^{-1}(\fFunc^{\prime}(\kap_{t})-\deprRte-\discRte),
+\end{aligned}\end{gathered}\label{eq:DecRCK-aggkdot}\end{equation}
+the planner's \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#eq-rck-kdot}{accumulation equation} and \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#eq-cdotoc}{Keynes-Ramsey rule} with $\PopnGroRte=\PtyGroRte=0$. With $\aNrm_{t}=\kap_{t}$, the household's transversality condition is the planner's \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#eq-tvc}{transversality condition}. The same two differential equations, from the same $\kap_{0}$ and with the same condition at infinity, select the same path: the economy follows the planner's \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#fig-ramseysaddleplot}{saddle path} to the \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#eq-rck-modgoldenrule}{modified golden rule}, where the interest rate equals the time preference rate, $\rfree = \discRte$.\marginFootnote{So human wealth is finite, and the economy cannot save too much: its interest rate exceeds its growth rate, zero. With population and productivity growth, the steady-state interest rate exceeds the growth rate $\PopnGroRte+\PtyGroRte$ by $\discRte-(1-\CRRA)\PtyGroRte$, which is positive under the condition that keeps \href{https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/\#eq-maxprobmod}{the planner's objective} finite. The competitive economy is therefore dynamically efficient, which the \href{https://intertemporal-choice.github.io/content/consumption/olgmodel/}{Diamond OLG economy} need not be.}
+
+The two coincide because the household maximizes the planner's objective and, in equilibrium, its budget constraint is the planner's resource constraint: factors are paid their marginal products, so the interest rate the household earns is the net marginal product of capital that the planner trades off against consumption. This is an instance of the \href{https://en.wikipedia.org/wiki/Fundamental_theorems_of_welfare_economics\#First_Fundamental_Theorem}{first fundamental theorem of welfare economics}: with competitive and complete markets and no externalities, a competitive equilibrium is Pareto efficient, and since the households here are identical, the efficient allocation that treats them alike is the planner's; \citet{romer:text}, section 2.4, makes this argument for this model. The result is convenient: a planner's problem, usually the easier one to solve, can be read as describing a market economy, as long as we are careful about the assumptions.
+
+\section{When the Market and the Planner Differ}
+
+The equivalence fails when a household's budget constraint or objective differs from the planner's in a way that matters, the \href{https://en.wikipedia.org/wiki/Fundamental_theorems_of_welfare_economics\#Common_failures_of_the_assumptions}{common failures} of the welfare theorem's assumptions:
+\begin{itemize}
+\item \textbf{Externalities.} When one household's accumulation raises others' productivity, as in \href{https://intertemporal-choice.github.io/content/growth/romer86/}{Romer (1986)} and the \href{https://intertemporal-choice.github.io/content/growth/lucasgrowth/}{Lucas model}, the market accumulates too little.
+\item \textbf{Distorting taxes.} A tax on capital income, even with its revenue rebated lump sum, lowers the capital stock in the \href{https://intertemporal-choice.github.io/content/growth/rckwithgov/}{RCK model with government}, while the planner's choice is unchanged.
+\item \textbf{Uninsurable idiosyncratic risk.} With complete insurance markets, households would insure their idiosyncratic risks at actuarially fair rates and behave as under perfect foresight. Without them, households save for precaution, so the interest rate settles \href{https://intertemporal-choice.github.io/content/consumption/aiyagari/\#res-aiyagari-r-below-time-preference}{below the time preference rate} and capital above the modified golden rule level, as in the \href{https://intertemporal-choice.github.io/content/consumption/aiyagari/}{Aiyagari model} \citep{aiyagari:ge}.
+\item \textbf{Finite lives.} In the \href{https://intertemporal-choice.github.io/content/consumption/olgmodel/}{Diamond OLG model} the competitive equilibrium can accumulate capital beyond the golden rule, which an infinitely lived planner, stopping at the modified golden rule, never does. In \href{https://intertemporal-choice.github.io/content/growth/blanchardfinitehorizon/}{Blanchard's perpetual youth model} a debt-financed tax cut raises consumption, so Ricardian equivalence, which holds in the \href{https://intertemporal-choice.github.io/content/growth/rckwithgov/}{RCK model with government}, fails.
+\end{itemize}
+
+\bibliographystyle{econark}
+\bibliography{\bibfilesfound}
+
+\end{document}

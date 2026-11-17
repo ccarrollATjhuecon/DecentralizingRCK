@@ -1,0 +1,13 @@
+% Macros specific to this handout. It loads after econark-notation, so once the vendored registry defines a
+% macro, the registry's wins; then delete the line here.
+
+% Not notation. A note the book prints in its margin (a {margin} block), printed here as a footnote
+% (Chris, 2026-11-14: "As a footnote"; 2026-11-16: a plain \footnote stays a footnote in the book).
+% check-book-sync.py compares it with the book's margin block.
+\newcommand{\marginFootnote}[1]{\footnote{#1}}
+
+% Objects the registry lacks, as the book's course block (notation/course-local-math.yml) defines them (rule D).
+\providecommand{\kapRent}{\varkappa}% the rental rate of capital, as in the Hall-Jorgenson chapter
+\providecommand{\PtyLab}{\mathrm{Z}}% labor productivity, here constant at one
+\providecommand{\Ham}{\mathcal{H}}% the current-value Hamiltonian
+\providecommand{\vk}{\lambda}% the costate, the marginal value of wealth
