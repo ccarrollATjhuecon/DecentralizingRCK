@@ -123,10 +123,9 @@ GREEK = ('alpha beta gamma delta epsilon varepsilon zeta eta theta vartheta iota
 RAW_ALLOWED = [
     (r't(?![A-Za-z])', 'the date'),
     (r'e(?=\s*\^)', "Euler's e"),
-    (r'd(?=\s*(?:\^\{?\d\}?\s*)?(?:[A-Za-z]|\\[A-Za-z]))', 'the differential, as in dt, di or d\\tau'),
-    (r'\\tau(?![A-Za-z])', 'the variable of integration over dates'),
+    (r'd(?=\s*(?:\^\{?\d\}?\s*)?(?:[A-Za-z]|\\[A-Za-z]))', 'the differential, as in dt, di or ds'),
+    (r's(?![A-Za-z])', 'the variable of integration over dates, as in the next chapter, where \\tau is the tax rate'),
     (r'i(?![A-Za-z])', 'the household index'),
-    (r'j(?![A-Za-z])', 'the firm index'),
 ]
 
 # Letters the page still writes raw, where the handout writes the macro that prints the same letter
