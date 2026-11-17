@@ -76,6 +76,7 @@ CROSS_CHAPTER = {
     '#eq:PFCRRA-ibc': 'https://intertemporal-choice.github.io/content/consumption/perfforesightcrra/#eq-pfcrra-ibc',
     '#eq:PFCRRA-yfin': 'https://intertemporal-choice.github.io/content/consumption/perfforesightcrra/#eq-pfcrra-yfin',
     '#eq:RCK-H1A': 'https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/#eq-rck-h1a',
+    '#eq:RCK-outputExhausted': 'https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/#eq-rck-outputexhausted',
     '#eq:RCK-kdot': 'https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/#eq-rck-kdot',
     '#eq:RCK-maxprob': 'https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/#eq-rck-maxprob',
     '#eq:RCK-modGoldenRule': 'https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/#eq-rck-modgoldenrule',
@@ -123,8 +124,8 @@ GREEK = ('alpha beta gamma delta epsilon varepsilon zeta eta theta vartheta iota
 RAW_ALLOWED = [
     (r't(?![A-Za-z])', 'the date'),
     (r'e(?=\s*\^)', "Euler's e"),
-    (r'd(?=\s*(?:\^\{?\d\}?\s*)?(?:[A-Za-z]|\\[A-Za-z]))', 'the differential, as in dt, di or ds'),
-    (r's(?![A-Za-z])', 'the variable of integration over dates, as in the next chapter, where \\tau is the tax rate'),
+    (r'd(?=\s*(?:\^\{?\d\}?\s*)?(?:[A-Za-z]|\\[A-Za-z]))', 'the differential, as in dt, di or d\\tau'),
+    (r'\\tau(?![A-Za-z])', 'the variable of integration over dates (net worth is s, \\netWorth)'),
     (r'i(?![A-Za-z])', 'the household index'),
 ]
 
