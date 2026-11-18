@@ -9,14 +9,14 @@ it fails to when those conditions fail.
   [intertemporal-choice.github.io](https://github.com/intertemporal-choice/intertemporal-choice.github.io)).
   Edits start there and are carried into `DecentralizingRCK.tex`.
 - **Build:** `latexmk` (the `latexmkrc` points TeX at the vendored registry in `@resources/`, econ-ark-tools
-  8d34f224, notation 10.0.0, read-only).
+  02e344d5, notation v14.1.0, read-only).
 - **Check against the book:** `./check-book-sync.py` (the book's main on GitHub), or
   `./check-book-sync.py --book-git <clone> --ref <commit>` for an unpushed book commit. It compares the words,
   the notes (a `\marginFootnote` here is a margin note in the book), the links, the citations and the printed
   symbols, and checks rule D: every object written with its macro.
-- `@local/DecentralizingRCK.sty` defines the objects the registry lacks, as the book's course block does: the
-  rental rate `\kapRent` (ϰ, as in the Hall-Jorgenson chapter), productivity `\PtyLab`, the Hamiltonian `\Ham` and
-  the costate `\vk`.
+- `@local/DecentralizingRCK.sty` defines no notation. Since 17b6cc5 (registry v14.1.0) the registry has every object
+  this handout writes, the rental rate `\kapRent`, productivity `\PtyLab`, the Hamiltonian `\Ham` and the costate
+  `\vk` among them.
 - `DecentralizingRCK.bib` holds the entries the handout cites, copied verbatim from texmf-local's `economics.bib`;
   the empty `system.bib` keeps the build to them.
 
