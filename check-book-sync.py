@@ -72,6 +72,7 @@ ACCEPTED_TEXT = [
 # The book's links to labels in other chapters, and the address the handout gives each.
 CROSS_CHAPTER = {
     '#eq:Aiyagari-Prices': 'https://intertemporal-choice.github.io/content/consumption/aiyagari/#eq-aiyagari-prices',
+    '#eq:HVD-cgrow': 'https://intertemporal-choice.github.io/content/appendices/mathematical/hamiltonianvsdiscrete/#eq-hvd-cgrow',
     '#eq:PFCRRA-cgrow': 'https://intertemporal-choice.github.io/content/consumption/perfforesightcrra/#eq-pfcrra-cgrow',
     '#eq:PFCRRA-ibc': 'https://intertemporal-choice.github.io/content/consumption/perfforesightcrra/#eq-pfcrra-ibc',
     '#eq:PFCRRA-yfin': 'https://intertemporal-choice.github.io/content/consumption/perfforesightcrra/#eq-pfcrra-yfin',
@@ -87,7 +88,6 @@ CROSS_CHAPTER = {
     '#eq:lamgrow': 'https://intertemporal-choice.github.io/content/appendices/mathematical/hamiltonianvsdiscrete/#eq-lamgrow',
     '#eq:maxprobmod': 'https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/#eq-maxprobmod',
     '#eq:rEqfp': 'https://intertemporal-choice.github.io/content/consumption/olgmodel/#eq-reqfp',
-    '#eq:trans2': 'https://intertemporal-choice.github.io/content/appendices/mathematical/hamiltonianvsdiscrete/#eq-trans2',
     '#eq:tvc': 'https://intertemporal-choice.github.io/content/growth/ramseycasskoopmans/#eq-tvc',
     '#eq:uceqvk': 'https://intertemporal-choice.github.io/content/appendices/mathematical/hamiltonianvsdiscrete/#eq-uceqvk',
     '#fact:eulerstheorem': 'https://intertemporal-choice.github.io/content/appendices/mathematical/mathfactslist/#fact-eulerstheorem',
