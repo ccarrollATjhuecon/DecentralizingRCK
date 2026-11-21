@@ -1,3 +1,6 @@
+> **This repository has moved to [llorracc/DecentralizingRCK](https://github.com/llorracc/DecentralizingRCK).** This copy is archived and
+> is no longer updated; the current handout, its notebook and its history are there.
+
 # Decentralizing the Ramsey/Cass-Koopmans Model
 
 A handout for JHU Econ 180.603 (Intertemporal Choice): an economy of households and firms trading in competitive
